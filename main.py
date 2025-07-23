@@ -47,15 +47,18 @@ def understand_input (user_input):
     
     tone = next ((tn for tn in tones if tn in user_input.lower ()), "descriptive")
     
-    type = ["blogs", "posts", "articles", "ideas", "topics", "content", "titles", "headlines", "suggestions", "themes", "concepts", "outlines", "drafts", "plans", "strategies", "guides", "tips", "hints", "clues", "pointers", "blog", "post", "article", "idea", "topic", "title", "headline", "suggestion", "theme", "concept", "outline", "draft", "plan", "strategie", "guide", "tip", "hint", "clue", "pointer"]
+    type = ["blogs", "posts", "articles", "ideas", "topics", "content", "titles", "headlines", "suggestions", "themes", "concepts", "outlines", "drafts", "plans", "strategies", "guides", "tips", "hints", "clues", "pointers", "blog", "post", "article", "idea", "topic", "title", "headline", "suggestion", "theme", "concept", "outline", "draft", "plan", "strategie", "guide", "tip", "hint", "clue", "pointer", "prompts", "prompt"]
     
     type = next ((t for t in type if t in user_input.lower ()), None)
     
+    count = 0
+    
     if type is not None:
+        
         count_index = user_input.lower().index (type)
-        count = user_input[count_index-2]
-        if count == 0:
-            count = user_input[count_index-3] if user_input[count_index-2] == 1 else 0
+        scan_area = user_input[0: count_index-1]
+        counts = re.findall(r'\d+', scan_area)
+        count = int(counts[len(counts)-1])
             
     match = 1
     
@@ -85,7 +88,7 @@ if user_input:= st. chat_input ("what is up?"):
     input_valid = validate_input(user_input)
     if input_valid == 1:
         topic, tone, match, count = understand_input(user_input)
-        if int (count) > 0 or int (count) > 10:
+        if count > 0 and count <= 10:
             st.chat_message ("user").markdown(user_input)
             st.session_state.messages.append({"role": "user", "content": user_input})
             
@@ -122,8 +125,8 @@ if user_input:= st. chat_input ("what is up?"):
                     temperature=0.7
                 )
                 head_response = ""
-                if int(match) == 0:
-                    head_response = "Oops! I couldn't find a prompt in that category."
+                if match == 0:
+                    head_response = "I couldn't find the prompt category from your input. But allow me to suggest a few prompt ideas which i feel would be relevant."
                     st.write(head_response)
                 response = st.write_stream(stream)
                 response = head_response + response
