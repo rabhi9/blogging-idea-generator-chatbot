@@ -21,7 +21,7 @@ def response_generator (msg_type):
         response = random.choice (
             [
                 "Hi , which topic would you like blog ideas for today?",
-                "Hi, human! Is there anything I can help you with?",
+                "What topic do you want blog ideas for? Please specify tone and number of suggestions.",
                 "Do you need help writing your blog?",
             ]
         )
@@ -58,7 +58,11 @@ def understand_input (user_input):
         count_index = user_input.lower().index (type)
         scan_area = user_input[0: count_index-1]
         counts = re.findall(r'\d+', scan_area)
-        count = int(counts[len(counts)-1])
+        if counts != []:
+            count = int(counts[len(counts)-1])
+        else:
+            count = 0
+    
             
     match = 1
     
