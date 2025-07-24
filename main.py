@@ -126,15 +126,15 @@ if user_input:= st. chat_input ("what is up?"):
                 )
                 head_response = ""
                 if match == 0:
-                    head_response = "I couldn't find the prompt category from your input. But allow me to suggest a few prompt ideas which i feel would be relevant."
+                    head_response = "Oops! I couldn't find the prompt category from your input. I can generate a new prompt , but i can't modify the previous prompt. Allow me to suggest a few prompt ideas which i feel would be relevant."
                     st.write(head_response)
                 response = st.write_stream(stream)
                 response = head_response + response
             st.session_state.messages.append({"role": "assistant", "content": response})
         else:
-            st.chat_message("assistant").write("Between 1 to 10 Blog ideas can only be genetated at a time")
+            st.chat_message("assistant").write("Hi fellow-blogger. I can generate between 1 to 10 blog ideas for you at a time. Please enter which topic do you want me to suggest ideas for.")
     else:
-        st.chat_message("assistant").write("Please enter a valid input.")
+        st.chat_message("assistant").write("Hi fellow-blogger. Please enter a valid input upto 200 words so that i can help you with your blog ideas.")
    
 
             
