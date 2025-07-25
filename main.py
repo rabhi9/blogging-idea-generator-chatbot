@@ -1,6 +1,5 @@
 import streamlit as st
 from openai import OpenAI
-from lorem_text import lorem
 import random
 import time
 import re
